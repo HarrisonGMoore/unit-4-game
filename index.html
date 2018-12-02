@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
 
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h2>Crystal Collector</h2>
+        </div>
+    <div class="random">
+        <div class="target">
+            <p>Target Number:</p>
+        </div>
+
+        <div class="instructions">  
+            <p>You will be given a random number at the start of the game.</p>
+            <p>There are four characters below. By clicking on a character you will add a specific amount of crystals to your total score.</p>
+            <p>You win the game by matching your total score to the random number. You lose the game if your total score goes above the random number.</p>
+            <p>The amount of crystals that each character can grab is hidden from you until you click on it.</p>
+            <p>Each time the game starts, the game will change the values of each character and a new random number will be generated.</p>
+        </div>
+    </div>
+        <div class="number"></div> 
+    </div>
+
+        <div class="outcome">
+            Wins:<div id="wins"></div>
+            Losses:<div id="losses"></div>
+        </div>
+    </div>
+    <div class="power">
+        <img src="assets/images/ruby-stone-500x500.jpg" width="200" class="click" id="red">
+        <img src="assets/images/MAGICALCRYSTALS-3.jpg" width="200" class="click" id="green">
+        <img src="assets/images/81r2A8Cyq2L._SL1200_.jpg" width="200" class="click" id="blue">
+        <img src="assets/images/safe_image_7_141fdd03-edfd-4e8a-b4b3-e76f7790152d_1024x1024.jpg" width="200" class="click" id="yellow">
+    </div>
+
+<div class="score">
+    <h3>Your Total Score is: </h3>
+</div>
+
+<div class="math"></div>        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+    var wins = 0;
+    var losses = 0;
+
+    var math = 0;
+
+    var number = Math.floor((Math.random()* 100) + 19);
+
+    var red = Math.floor((Math.random()* 12)+ 1);
+    var green = Math.floor((Math.random()* 12)+ 1);
+    var blue = Math.floor((Math.random()* 12)+ 1);
+    var yellow = Math.floor((Math.random()* 12)+ 1);
+
+    var configmath = function() {
+        $('#wins').empty();
+        $('#wins').append(wins);
+        $('#losses').empty();
+        $('#losses').append(losses);
+        $('.math').empty();
+        $('.math').append(math);
+        }
+
+    // Reset the game //
+    var reset = function() {
+        math = 0;
+        number = Math.floor((Math.random()* 100)+ 19);
+
+        $('.number').empty();
+        $('.number').append(number);
+
+        red = Math.floor((Math.random()* 12) + 1);
+        green = Math.floor((Math.random()* 12) + 1);
+        blue = Math.floor((Math.random()* 12) + 1);
+        yellow = Math.floor((Math.random()* 12) + 1);
+        configmath();
+        }
+        
+    var config = function() {
+        if (math == number) {
+            wins = wins + 1;
+            reset();
+        } else if (math > number) {
+            losses = losses + 1;
+            reset();
+        } else {
+            configmath();
+        }}
+
+        $('.math').append(math);
+        $('.number').append(number);
+
+        $(document).ready(function() {
+
+        $('#red').click(function() {
+            math = math + green;
+            config();
+        })
+        $('#green').click(function() {
+            math = math + red;
+            config();
+        })
+        $('#blue').click(function() {
+            math = math + blue;
+            config();
+        })
+        $('#yellow').click(function() {
+            math = math + yellow;
+            config();
+        })
+    });
+    </script>
+</body>
+</html>
